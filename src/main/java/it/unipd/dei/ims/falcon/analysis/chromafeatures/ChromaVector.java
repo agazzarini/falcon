@@ -24,7 +24,7 @@ import java.util.StringJoiner;
  */
 public class ChromaVector {
 
-	private float[] chromavalues;
+	private double[] chromavalues;
 	private float energy;
 
 	// precomputed values (when not null)
@@ -37,12 +37,12 @@ public class ChromaVector {
 	 * constructor - automatically normalizes values with 2-norm
 	 * @param values
 	 */
-	public ChromaVector(float[] values) {
-		chromavalues = new float[12];
+	public ChromaVector(double[] values) {
+		chromavalues = new double[12];
 		float sum = 0;
 		energy = 0;
 		for (int i = 0; i < 12; i++) {
-			float v = values[i];
+			double v = values[i];
 			chromavalues[i] = v;
 			energy += v * v;
 			sum += v;
@@ -74,7 +74,7 @@ public class ChromaVector {
 		kurtosis = k;
 	}
 
-	public float[] getChromaValues() {
+	public double[] getChromaValues() {
 		return chromavalues;
 	}
 
@@ -86,7 +86,7 @@ public class ChromaVector {
 	 */
 	public int rankRepresentation(int k, int npeaks) {
 		int representation = 0;
-		float[] chromacopy = Arrays.copyOf(chromavalues, chromavalues.length);
+		double[] chromacopy = Arrays.copyOf(chromavalues, chromavalues.length);
 
 		for (int i = 0; i < npeaks; i++) {
 			// find i-th largest
@@ -166,7 +166,7 @@ public class ChromaVector {
 		// dirty code, but works
 		n = -n;
 		n = (n + 12) % 12;
-		float[] tmp = new float[12];
+		double[] tmp = new double [12];
 		for (int i = 0; i < 12; i++)
 			tmp[i] = chromavalues[(i - n + 12) % 12];
 		chromavalues = tmp;
